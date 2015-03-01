@@ -3,6 +3,7 @@
 from emojiDict import emojiLookup
 import cPickle as pickle
 from collections import OrderedDict
+import string
 
 class Pyemoji(object):
 
@@ -25,7 +26,10 @@ class Pyemoji(object):
             wordsAndPhrases.append(word)
             wordsAndPhrases.append(words[i]+' '+words[i+1])
             wordsAndPhrases.append(words[i]+' '+words[i+1]+' '+words[i+2])
+
         wordsAndPhrases.append(words[-2]+' '+words[-1])
+        wordsAndPhrases.append(words[-3])
+        wordsAndPhrases.append(words[-2])
         wordsAndPhrases.append(words[-1])
 
         results = OrderedDict()
@@ -34,14 +38,30 @@ class Pyemoji(object):
         # Need to check for plurals.
         counter = 0
         for phrase in wordsAndPhrases:
-            if phrase in self.word2emoji.keys():
-                results[phrase+' '+str(counter)] = self.word2emoji[phrase]
+            ph = phrase.translate(string.maketrans("",""), string.punctuation).lower()
+            # Check if it ends in 's' and look for singular version
+            if ph in self.word2emoji.keys():
+                results[phrase+' '+str(counter)] = self.word2emoji[ph]
+            elif ph[:-1] in self.word2emoji.keys():
+                results[phrase+' '+str(counter)] = self.word2emoji[ph[:-1]]
             else:
                 if ' ' not in phrase:
                     results[phrase+' '+str(counter)] = phrase
             counter += 1
 
-        return results
+        self.results = results
+
+    def printResults(self):
+        """
+        Print the results out in a pretty way
+        """
+
+        # Print the key value pairs
+        for key in self.results.keys():
+            ack = key.split(' ')
+            ack = ack[:-1]
+            ack = ''.join(ack)
+            print ack, self.results[key]
 
 
 if __name__ == "__main__":
@@ -51,4 +71,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     myemoji = Pyemoji()
-    result = myemoji.run(args.inString)
+    myemoji.run(args.inString)
+    myemoji.printResults()
