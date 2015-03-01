@@ -22,15 +22,19 @@ class Pyemoji(object):
 
         words = inString.split(' ')
         wordsAndPhrases = []
-        for i,word in enumerate(words[:-3]):
-            wordsAndPhrases.append(word)
-            wordsAndPhrases.append(words[i]+' '+words[i+1])
-            wordsAndPhrases.append(words[i]+' '+words[i+1]+' '+words[i+2])
+        if len(words) >= 3:
+            for i,word in enumerate(words[:-3]):
+                wordsAndPhrases.append(word)
+                wordsAndPhrases.append(words[i]+' '+words[i+1])
+                wordsAndPhrases.append(words[i]+' '+words[i+1]+' '+words[i+2])
 
-        wordsAndPhrases.append(words[-2]+' '+words[-1])
-        wordsAndPhrases.append(words[-3])
-        wordsAndPhrases.append(words[-2])
-        wordsAndPhrases.append(words[-1])
+            wordsAndPhrases.append(words[-3])
+        if len(words) >= 2:
+            wordsAndPhrases.append(words[-2]+' '+words[-1])
+            wordsAndPhrases.append(words[-2])
+        if len(words) >=1:
+            wordsAndPhrases.append(words[-1])
+
 
         results = OrderedDict()
 
