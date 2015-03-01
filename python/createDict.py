@@ -18,7 +18,14 @@ def buildEmDict():
     emoDict = emojiLookup()
     thes = readThes()
     for key in emoDict.keys():
+
         inPhrases = key.split(', ')
+        ack = []
+        for phrase in inPhrases:
+            ack.append(phrase)
+            if ' ' in phrase:
+                ack.extend(phrase.split(' '))
+        inPhrases = list(set(ack))
         for phrase in inPhrases:
             if phrase in thes.keys():
                 newWords = thes[phrase]

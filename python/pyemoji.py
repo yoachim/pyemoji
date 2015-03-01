@@ -61,7 +61,7 @@ class Pyemoji(object):
             ack = key.split(' ')
             ack = ack[:-1]
             ack = ''.join(ack)
-            print ack, self.results[key]
+            print ack, ' '.join(self.results[key])
 
 
 if __name__ == "__main__":
