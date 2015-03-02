@@ -1,16 +1,17 @@
 #! /usr/bin/env python
 
-from emojiDict import emojiLookup
+import emojiDict
 import cPickle as pickle
 from collections import OrderedDict
 import string
+import os
 
 class Pyemoji(object):
 
     def __init__(self):
-        self.origEmojiDict = emojiLookup()
-        # Need to make this path generic
-        self.word2emoji = pickle.load(open('word2emoji.p', 'rb'))
+        self.origEmojiDict = emojiDict.emojiLookup()
+        filename = os.path.join(os.path.dirname(emojiDict.__file__), 'word2emoji.p')
+        self.word2emoji = pickle.load(open(filename, 'rb'))
 
     def printAll(self):
         """Print out the keys and symbols """
