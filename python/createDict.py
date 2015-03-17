@@ -30,12 +30,14 @@ def buildEmDict():
             if phrase in thes.keys():
                 newWords = thes[phrase]
                 newWords.append(phrase)
-                for word in newWords:
-                    if word in word2emoji.keys():
-                        if emoDict[key] not in word2emoji[word]:
-                            word2emoji[word].append(emoDict[key])
-                    else:
-                        word2emoji[word] = [emoDict[key]]
+            else:
+                newWords = [phrase]
+            for word in newWords:
+                if word in word2emoji.keys():
+                    if emoDict[key] not in word2emoji[word]:
+                        word2emoji[word].append(emoDict[key])
+                else:
+                    word2emoji[word] = [emoDict[key]]
 
     return word2emoji
 
