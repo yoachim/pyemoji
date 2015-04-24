@@ -352,7 +352,7 @@ def emojiLookup():
 "kissing heart":u"\U0001f618",
 "bullettrain side":u"\U0001f684",
 "fearful":u"\U0001f628",
-"moneybag":u"\U0001f4b0",
+"money bag":u"\U0001f4b0",
 "runner":u"\U0001f3c3",
 "mailbox":u"\U0001f4eb",
 "sandal":u"\U0001f461",
